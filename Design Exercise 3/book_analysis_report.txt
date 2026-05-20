@@ -1,0 +1,19 @@
+===============================================
+           BOOK ANALYSIS REPORT                
+===============================================
+Total Books Processed:       6
+Average Year of Publication:  1955.0
+Average Number of Pages:     368.3
+-----------------------------------------------
+BOOK WITH THE MOST PAGES:
+  Title:    A Game of Thrones
+  Author:   George R.R. Martin
+  Year:     1996
+  Pages:    694
+-----------------------------------------------
+BOOK WITH THE FEWEST PAGES:
+  Title:    The Catcher in the Rye
+  Author:   J.D. Salinger
+  Year:     1951
+  Pages:    234
+===============================================
