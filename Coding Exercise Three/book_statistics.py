@@ -1,10 +1,26 @@
 import csv
+import os
 
-# Define file names
+# --- STEP 1: AUTOMATIC FILE CREATION ---
+# This eliminates the "file not found" error by writing the CSV data automatically if it doesn't exist.
 input_csv = "books.csv"
 output_txt = "book_stats.txt"
 
+sample_csv_content = """title,author,year,pages
+The Hobbit,J.R.R. Tolkien,1937,310
+The Catcher in the Rye,J.D. Salinger,1951,220
+The Great Gatsby,F. Scott Fitzgerald,1925,180
+The Lord of the Rings: The Fellowship of the Ring,J.R.R. Tolkien,1954,492
+"""
 
+if not os.path.exists(input_csv):
+    with open(input_csv, mode="w", encoding="utf-8") as f:
+        f.write(sample_csv_content)
+    print(f"--> Notice: '{input_csv}' was missing, so it was automatically created for you at:")
+    print(f"    {os.path.abspath(input_csv)}\n")
+
+
+# --- STEP 2: MAIN PROGRAM LOGIC ---
 def process_books(file_name):
     # This 2D array will store our records: [[title, author, year, pages], ...]
     books_2d_array = []
@@ -12,17 +28,15 @@ def process_books(file_name):
     try:
         with open(file_name, mode="r", newline="", encoding="utf-8") as file:
             reader = csv.reader(file)
-
-            # Skip the header row if your CSV has one.
-            # If your CSV doesn't have a header, comment out the next line.
+            
+            # Skip the header row (title,author,year,pages)
             header = next(reader)
 
             for row in reader:
-                # Ensure the row has the expected number of fields
                 if len(row) == 4:
                     title = row[0].strip()
                     author = row[1].strip()
-                    # Convert fields to proper data types
+                    # Convert fields to proper data types (integers)
                     year = int(row[2].strip())
                     pages = int(row[3].strip())
 
@@ -30,12 +44,12 @@ def process_books(file_name):
                     books_2d_array.append([title, author, year, pages])
 
     except FileNotFoundError:
-        print(f"Error: The file '{file_name}' was not found.")
-        return None
+        print(f"Error: The file '{file_name}' still could not be accessed.")
+        return
 
     if not books_2d_array:
         print("No data found in the CSV file.")
-        return None
+        return
 
     # --- Calculations ---
     total_books = len(books_2d_array)
@@ -46,9 +60,8 @@ def process_books(file_name):
     book_most_pages = books_2d_array[0]
     book_least_pages = books_2d_array[0]
 
-    # Iterate through the 2D array
+    # Loop through the 2D array to find stats
     for book in books_2d_array:
-        # Accumulate totals for averages
         total_years += book[2]
         total_pages += book[3]
 
@@ -66,14 +79,14 @@ def process_books(file_name):
 
     # --- Format Output Strings ---
     output_lines = [
-        f"Average Publication Year: {avg_year:.3f}",
-        f"Average Number of Pages: {avg_pages:.2f}",
+        f"Average Publication Year: {avg_year}",
+        f"Average Number of Pages: {avg_pages}",
         f"Book with Most Pages: Title: {book_most_pages[0]}, Author: {book_most_pages[1]}, Year: {book_most_pages[2]}, Pages: {book_most_pages[3]}",
-        f"Book with Least Pages: Title: {book_least_pages[0]}, Author: {book_least_pages[1]}, Year: {book_least_pages[2]}, Pages: {book_least_pages[3]}",
+        f"Book with Least Pages: Title: {book_least_pages[0]}, Author: {book_least_pages[1]}, Year: {book_least_pages[2]}, Pages: {book_least_pages[3]}"
     ]
 
     # --- Output to Terminal ---
-    print("\n--- Summary Statistics ---")
+    print("--- Terminal Output ---")
     for line in output_lines:
         print(line)
 
@@ -82,7 +95,8 @@ def process_books(file_name):
         for line in output_lines:
             out_file.write(line + "\n")
 
-    print(f"\nResults have been successfully saved to '{output_txt}'.")
+    print("\n------------------------------------------------")
+    print(f"Results have also been successfully saved to file: '{output_txt}'")
 
 
 # Run the program

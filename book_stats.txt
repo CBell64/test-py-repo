@@ -1,0 +1,4 @@
+Average Publication Year: 1941.75
+Average Number of Pages: 300.5
+Book with Most Pages: Title: The Lord of the Rings: The Fellowship of the Ring, Author: J.R.R. Tolkien, Year: 1954, Pages: 492
+Book with Least Pages: Title: The Great Gatsby, Author: F. Scott Fitzgerald, Year: 1925, Pages: 180
