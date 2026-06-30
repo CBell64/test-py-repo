@@ -30,5 +30,8 @@
             "environmentVariable": "JAVA_HOME",
             "value": "c:\\Users\\Candi\\AppData\\Roaming\\Code\\User\\globalStorage\\pleiades.java-extension-pack-jdk\\java\\latest"
         }
+    ],
+    "cSpell.words": [
+        "Candi"
     ]
 }
